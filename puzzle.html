@@ -1711,7 +1711,7 @@
             if (startBtn) {
             startBtn.addEventListener("click", () => {
                 // Swap to a new image before starting the puzzle
-                puzzle.swapImage("willyou.PNG", 0.03); // 0.3 = faded outline
+                puzzle.swapImage("willyou.PNG", 0); // 0.3 = faded outline
                 
                 // trigger puzzle start with 25 pieces
                 events.push({ event: "nbpieces", nbpieces: 25 });
