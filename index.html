@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Star Lock</title>
+
+<!-- Using Google Fonts for elegant minimalist style -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f3e2d7;
+  font-family: 'Playfair Display', Georgia, serif;
+  color:#333;
+}
+
+/* ⭐ STAR CONTAINER */
+.star-lock{
+  position:relative;
+  width:280px;
+  text-align:center;
+}
+
+/* ⭐ SVG STAR */
+.star-lock img{
+  width:100%;
+  display:block;
+}
+
+/* ✨ TITLE — over SVG */
+.title{
+  position:absolute;
+  top:63%;              /* adjust if needed */
+  left:50%;
+  transform:translateX(-50%);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight:500;
+  color:#333;           /* elegant neutral color */
+  font-size:16px;
+  width:100%;
+  text-transform:capitalize;
+  letter-spacing:0.5px;
+}
+
+/* CODE BOXES */
+.code-boxes{
+  margin-top:2px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+.code-boxes input{
+  width:42px;
+  height:48px;
+  font-size:22px;
+  text-align:center;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-family:'Montserrat', sans-serif;
+}
+
+/* UNLOCK BUTTON */
+button{
+  margin-top:16px;
+  padding:8px 22px;
+  border:none;
+  border-radius:12px;
+  background:#b3b3b3;       /* minimalist dark button */
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+  font-family:'Montserrat', sans-serif;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover{
+  background:#555;
+  transform:scale(1.03);
+}
+
+/* HIDDEN CONTENT */
+#secret{
+  display:none;
+  text-align:center;
+  margin-top:20px;
+  font-family:'Montserrat', sans-serif;
+  color:#333;
+}
+</style>
+</head>
+<body>
+
+<!-- ⭐ STAR LOCK -->
+<div id="lock" class="star-lock">
+  <img src="star.svg" alt="Chrome Star">
+
+  <div class="title">The day we first kissed</div>
+
+  <!-- PASSCODE INPUTS -->
+  <div class="code-boxes">
+    <input type="text" maxlength="1" inputmode="numeric">
+    <input type="text" maxlength="1" inputmode="numeric">
+    <input type="text" maxlength="1" inputmode="numeric">
+    <input type="text" maxlength="1" inputmode="numeric">
+  </div>
+
+  <button onclick="checkCode()">Unlock</button>
+</div>
+
+<!-- 💌 SECRET CONTENT -->
+<div id="secret">
+  <h1>💖 Unlocked!</h1>
+  <p>Your surprise page goes here.</p>
+</div>
+
+<script>
+const correctCode = "0804";
+const inputs = document.querySelectorAll(".code-boxes input");
+
+/* AUTO MOVE */
+inputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    input.value = input.value.replace(/[^0-9]/g, "");
+    if(input.value && index < inputs.length - 1){
+      inputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if(e.key === "Backspace" && !input.value && index > 0){
+      inputs[index - 1].focus();
+    }
+  });
+});
+
+function checkCode(){
+    const enteredCode = Array.from(inputs).map(i => i.value).join("");
+  
+    if(enteredCode === correctCode){
+      /* 👉 REDIRECT TO NEXT PAGE */
+      window.location.href = "puzzle.html";
+    } else {
+      alert("Wrong code ⭐");
+    }
+  }
+</script>
+
+</body>
+</html>
