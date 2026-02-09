@@ -9,16 +9,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#f3e2d7;
-  font-family: 'Playfair Display', Georgia, serif;
-  color:#333;
-}
+    body{
+        margin: 0;
+        min-height: 100vh;
+      
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      
+        background-image: url("./PC.JPEG");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      
+        font-family: 'Playfair Display', Georgia, serif;
+        color: #333;
+
+      }
+      
+      /* 📱 MOBILE */
+      @media (max-width: 768px){
+        body{
+          background:
+            url("./PC.JPEG") top center / 180% no-repeat,
+            #eb4280;
+        }
+      }
+      
 
 /* ⭐ STAR CONTAINER */
 .star-lock{
@@ -36,12 +53,12 @@ body{
 /* ✨ TITLE — over SVG */
 .title{
   position:absolute;
-  top:63%;              /* adjust if needed */
+  top:70%;              /* adjust if needed */
   left:50%;
   transform:translateX(-50%);
   font-family: 'Playfair Display', Georgia, serif;
   font-weight:500;
-  color:#333;           /* elegant neutral color */
+  color:#f3e2d7;           /* elegant neutral color */
   font-size:16px;
   width:100%;
   text-transform:capitalize;
@@ -99,7 +116,7 @@ button:hover{
 
 <!-- ⭐ STAR LOCK -->
 <div id="lock" class="star-lock">
-  <img src="star.svg" alt="Chrome Star">
+  <img src="lock.svg" alt="Chrome Star">
 
   <div class="title">The day we first kissed</div>
 
@@ -154,3 +171,4 @@ function checkCode(){
 
 </body>
 </html>
+
