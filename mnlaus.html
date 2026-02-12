@@ -235,6 +235,26 @@ body {
   margin: 0;
 }
 
+/* Justify text in message modal and add scroll if content overflows */
+#messageModal .modal-content {
+  text-align: justify;        /* Justify text */
+  overflow-y: auto;           /* Enable vertical scroll if content is too tall */
+  padding: 25px 25px 25px 25px; 
+}
+
+/* Optional: smooth scrollbar styling */
+#messageModal .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+#messageModal .modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+#messageModal .modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
 
 /* Modal Animations */
 @keyframes pop { 
@@ -414,9 +434,9 @@ body {
     </div>
 
     <div class="square-feature">
-        <h3>Want this ticket?</h3>
-        <button id="reasonsBtn">Redeem Now</button>
-      </div>
+      <h3>Claim your free bonus ticket?</h3>
+      <button id="reasonsBtn">Redeem Now</button>
+    </div>
 
   </div>
 </div>
@@ -431,10 +451,14 @@ body {
       store clerks to strangers what was good around Sydney, even though I know you never ask for
       much. I just wanted you to have the best time. I remember counting down the days until I could
       see you again, like that was the only thing that mattered.
+      <br>
+      <br>
       As soon as I got to Melbourne, I tried so hard to act normal. I walked around the whole grid just
       to distract myself, checking my phone way too much, pretending I was calm when I clearly was
       not. I even had to force myself to eat despite not having an appetite from being so excited and
       nervous at the same time. Knowing you were there made it impossible to sit still.
+      <br>
+      <br>
       I remember buying a seltzer when I checked your location seeing as you’re already in the
       apartment just to calm myself down, telling myself to relax even though I could not. The moment
       the drink finally hit me, I could not wait anymore. I ran to the nearest bike and rode straight to the
@@ -447,8 +471,9 @@ body {
 <div class="modal" id="reasonsModal">
   <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
     <span class="close" id="closeReasons">&times;</span>
-    <div id="reason" style="min-height:60px; font-size:1.2rem; margin:10px 0;">Loading reasons...</div>
-    <button id="nextReason">LOVE U❤️</button>
+    <!-- IMAGE for reasons -->
+    <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:100%;">
+    <button id="nextReason">FOR YOU</button>
   </div>
 </div>
 
@@ -458,31 +483,61 @@ body {
 <script src="https://cdn.jsdelivr.net/npm/jquery-hammerjs@2.0.0/jquery.hammer.min.js"></script>
 <script>
 
-    const reasons = [
-    "HAPPY VALENTINES"
-  ];
-  
-  let currentIndex = 0;
-  const reasonEl = document.getElementById('reason');
-  const nextReasonBtn = document.getElementById('nextReason');
-  
-  // Show reason
-  function showReason(index) {
-    reasonEl.textContent = reasons[index];
-  }
+  const reasons = [
+  "./2.jpg"
+];
+
+let currentIndex = 0;
+const reasonImg = document.getElementById('reasonImg');
+const nextReasonBtn = document.getElementById('nextReason');
+
+function showReason(index) {
+  reasonImg.src = reasons[index];
+}
   
   // Modal logic
   const reasonsModal = document.getElementById('reasonsModal');
   document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
   document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
-  window.onclick = (e) => { if(e.target === reasonsModal) reasonsModal.style.display = 'none'; }
+  window.addEventListener('click', (e) => { 
+    if(e.target === reasonsModal) reasonsModal.style.display = 'none'; 
+  });
+
+  /// Spawn multiple hearts like confetti
+function spawnHeartsConfetti(x, y) {
+  for(let i = 0; i < 10; i++){
+      const heart = document.createElement('div');
+      heart.textContent = '❤️';
+      heart.style.position = 'absolute';
+      heart.style.left = x + (Math.random()*40 - 20) + 'px';
+      heart.style.top = y + 'px';
+      heart.style.fontSize = 12 + Math.random()*12 + 'px';
+      heart.style.opacity = 1;
+      heart.style.pointerEvents = 'none';
+      heart.style.transition = 'all 1s ease-out';
+      document.body.appendChild(heart);
+
+      // Animate upwards and sideways
+      setTimeout(() => {
+          heart.style.top = (y - 80 - Math.random()*20) + 'px';
+          heart.style.left = (parseFloat(heart.style.left) + (Math.random()*40-20)) + 'px';
+          heart.style.opacity = 0;
+      }, 50);
+
+      setTimeout(() => heart.remove(), 1200);
+  }
+}
+
   
-  // Next reason button
-  nextReasonBtn.addEventListener('click', () => {
+  // Next reason button click
+  nextReasonBtn.addEventListener('click', (e) => {
     currentIndex = (currentIndex + 1) % reasons.length;
     showReason(currentIndex);
+    // spawn heart at button center
+    const rect = e.target.getBoundingClientRect();
+    spawnHearts(rect.left + rect.width/2, rect.top);
   });
-  
+
   // Show first reason
   showReason(currentIndex);
 
@@ -564,3 +619,4 @@ rightBtn.onclick = () => {
 </script>
 </body>
 </html>
+
