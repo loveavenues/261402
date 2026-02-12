@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- SOFIA SANS FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>MNL to BKK</title>
+<style>
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family:'Sofia Sans', sans-serif;
+  background: #ffffff; /* white background */
+  overflow-x: hidden;
+  color: #000000; 
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 100;
+  color: #000000;
+}
+
+/* Gift Box Container */
+.gift-box {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1350px;
+  margin: 20px auto;
+  border: 4px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  background-color: #f8f8f8;
+  overflow: visible;
+}
+
+/* Menu */
+.menu {
+    background-color: #e0e0e0; /* gray */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-right: 2px dotted #b0b0b0;
+    min-width: 150px;
+}
+.menu a {
+    text-decoration: none;
+    color: #333333; /* dark gray */
+    font-size: 18px;
+    transition: color 0.3s;
+}
+.menu a:hover { color: #000000; }
+
+/* Middle Column */
+.gift-header {
+    flex: 2 1 400px;
+    border-left: 2px dotted #b0b0b0;
+    border-right: 2px dotted #b0b0b0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 100%;
+}
+.title {
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 700;
+  color: #000000;
+  text-shadow: 1px 1px #888888;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.small-title {
+  font-size: clamp(16px, 2vw, 20px);
+  color: #000000; 
+  border: 2px solid #888888; 
+  box-shadow: 2px 2px #cccccc; 
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+.gift-header img {
+  max-width: 80%;
+  height: auto;
+  border: 2px solid #888888;
+  box-shadow: 2px 2px #cccccc;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+#envelopeBtn {
+  font-size: 60px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 10px;
+  transition: transform 0.3s;
+  position: relative;
+}
+#envelopeBtn:hover { transform: scale(1.2); }
+.speech-bubble {
+  position: absolute;
+  top: -50px;
+  background: #ffffff;
+  border: 2px solid #888888;
+  color: #000000;
+  box-shadow: 2px 2px #cccccc;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 1 1 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+}
+.sidebar .square-feature {
+  flex: none;  /* prevent shrinking */
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.2s;
+  width: 100%;
+  flex: none;
+  background-color: #f8f8f8;
+  border: 2px solid #888888;
+  box-shadow: 2px 2px #cccccc;
+}
+.square-feature:hover { transform: scale(1.02); }
+.square-feature h3 { font-size: 18px; color: #000000; margin-bottom: 8px; }
+.square-feature p { font-size: 16px; color: #5a3e36; margin-bottom: 8px; }
+/* Cute Buttons */
+.square-feature button,
+#nextReason {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #555555, #222222); /* dark gradient for buttons */
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* ⚡ Make #nextReason static */
+#nextReason:hover {
+    transform: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+#nextReason::after {
+    display: none;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Modal box */
+.modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 25px 25px;
+  width: 90%;
+  max-width: 520px;
+
+  /* ✨ IMPORTANT */
+  height: auto;
+  max-height: 90vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+
+  border: 3px dashed #888;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  animation: pop .35s ease;
+}
+
+/* Reason text */
+#reason {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #9b1c75;
+  font-weight: 600;
+
+  /* ✨ remove giant spacing */
+  min-height: unset;
+  margin: 0;
+}
+
+
+/* Modal Animations */
+@keyframes pop { 
+  from { transform: scale(0.7); opacity: 0; } 
+  to { transform: scale(1); opacity: 1; } 
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-5px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Close Button Cute */
+.close {
+  font-size: 26px;
+  font-weight: bold;
+  color: #000000;
+  text-shadow: 1px 1px 0 #fff;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.close:hover { transform: rotate(90deg) scale(1.2); color: #444444; }
+
+/* 🌸 IMAGE SLIDER (3:4 single image view) */
+.image-slider{
+  position: relative;
+  width: 80%;
+  max-width: 420px; /* controls size of portrait */
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Track */
+.slider-track{
+  display:flex;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;
+}
+
+/* Hide scrollbar */
+.slider-track::-webkit-scrollbar{
+  display:none;
+}
+
+/* Each slide */
+.slider-track img{
+  flex: 0 0 100%;
+  width: 100%;
+  aspect-ratio: 3 / 4;   /* ⭐ forces 3x4 */
+  object-fit: cover;     /* fills frame nicely */
+  
+  border:2px solid #888;
+  box-shadow:2px 2px #ccc;
+  border-radius:8px;
+
+  scroll-snap-align:center;
+}
+  
+  /* Arrow buttons (desktop) */
+  .slide-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    font-size:22px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    z-index:5;
+  }
+  
+  .slide-btn.left{ left:5px; }
+  .slide-btn.right{ right:5px; }
+  
+  /* Hide arrows on phone */
+  @media(max-width:768px){
+    .slide-btn{
+      display:none;
+    }
+  }
+  
+
+/* Music Player */
+#player { width: 100%; border-radius: 12px; border: 2px solid #888888; box-shadow: 2px 2px #cccccc; overflow: hidden; }
+#album-art img { width: 100%; border-bottom: 2px solid #ffb6c1; }
+#player-controls { display: flex; justify-content: center; gap: 15px; padding: 8px; }
+#player-controls .button { font-size: 20px; color: #000000; }
+#player-controls .button:hover { color: #444444; }
+#track-name, #album-name { padding: 6px; font-size: 14px; }
+
+.modal-content h2 { color: #010101; margin-bottom: 12px; }
+.modal-content p { font-size: 16px; line-height: 1.4; }
+.close { font-size: 22px; cursor: pointer; }
+.close:hover { color: #8c8c8c; }
+
+/* Animations */
+@keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .gift-box { flex-direction: column; }
+  .menu { flex-direction: row; overflow-x: auto; border-bottom: 2px dotted #ffb6c1; border-right: none; }
+  .sidebar { flex-direction: column; width: 100%; max-height: none; overflow: visible; }
+  .sidebar .square-feature { width: 100%; min-width: auto; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .menu { display: none; position: absolute; top: 0; left: 0; width: 70%; height: 100%; z-index: 99; flex-direction: column; background-color: #ffe4ec; padding-top: 60px; border-right: none; border-bottom: none; }
+  .menu.show { display: flex; }
+  .gift-header img { max-width: 95%; }
+  .small-title { height: auto; padding: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hamburger" id="hamburger">☰</div>
+
+<div class="gift-box">
+  <!-- Left Menu -->
+  <div class="menu" id="menu">
+    <a href="#">RARI</a>
+    <a href="#">Flight No 5J 929</a>
+    <a href="#">Seat 10C</a>
+    <a href="main.html">⬅ Back to Main</a>
+  </div>  
+
+  <!-- Middle Column -->
+  <div class="gift-header">
+    <div class="title">MNL to BKK</div>
+    <div class="small-title">12/06/2025</div>
+    <!-- 🌸 IMAGE SLIDER -->
+    <div class="image-slider">
+
+        <button class="slide-btn left" id="slideLeft">❮</button>
+    
+        <div class="slider-track" id="sliderTrack">
+        <img src="./3.1.PNG" alt="">
+        <img src="./3.2.PNG" alt="">
+        <img src="./3.3.PNG" alt="">
+        <img src="./3.4.PNG" alt="">
+        </div>
+    
+        <button class="slide-btn right" id="slideRight">❯</button>
+    
+    </div>
+    
+    <div style="position: relative; display: inline-block; margin-top: 20px;">
+      <div class="speech-bubble">Open the envelope!</div>
+      <button id="envelopeBtn">💌</button>
+    </div>
+  </div>
+
+  <!-- Right Sidebar -->
+  <div class="sidebar">
+    <div class="square-feature">
+      <h3>Our Song</h3>
+      <div id="player">
+        <div id="album-art"><img id="album-img" src="" /></div>
+        <div id="track-name"></div>
+        <div id="album-name"></div>
+        <div id="progress-container"><div id="progress"></div></div>
+        <div id="timer"><span id="current-time">0:00</span><span id="duration">0:00</span></div>
+        <div id="player-controls">
+          <div class="button" id="play-previous"><i class="fas fa-backward"></i></div>
+          <div class="button" id="play-pause-button"><i class="fas fa-play"></i></div>
+          <div class="button" id="play-next"><i class="fas fa-forward"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="square-feature">
+        <h3>Want this ticket?</h3>
+        <button id="reasonsBtn">Redeem Now</button>
+      </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="messageModal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <p>There are so many things I love about you. I love your wawa face. I love the way you
+        get excited when you tell me things. And most of all, I love the light you give off when you are
+        around the people you love. It is warm and impossible to miss.
+        I feel lucky. Lucky to be one of those people. Lucky to hear your jokes. Lucky to see all the weird
+        faces I did not even know you could make. Being around you makes me feel like myself, and I
+        would choose you in every setting.</p>
+  </div>
+</div>
+
+<!-- Modal for Reasons Why -->
+<div class="modal" id="reasonsModal">
+  <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
+    <span class="close" id="closeReasons">&times;</span>
+    <div id="reason" style="min-height:60px; font-size:1.2rem; margin:10px 0;">Loading reasons...</div>
+    <button id="nextReason">LOVE U❤️</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-hammerjs@2.0.0/jquery.hammer.min.js"></script>
+<script>
+
+    const reasons = [
+    "HAPPY VALENTINES"
+  ];
+  
+  let currentIndex = 0;
+  const reasonEl = document.getElementById('reason');
+  const nextReasonBtn = document.getElementById('nextReason');
+  
+  // Show reason
+  function showReason(index) {
+    reasonEl.textContent = reasons[index];
+  }
+  
+  // Modal logic
+  const reasonsModal = document.getElementById('reasonsModal');
+  document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
+  document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
+  window.onclick = (e) => { if(e.target === reasonsModal) reasonsModal.style.display = 'none'; }
+  
+  // Next reason button
+  nextReasonBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % reasons.length;
+    showReason(currentIndex);
+  });
+  
+  // Show first reason
+  showReason(currentIndex);
+
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
+hamburger.addEventListener("click", () => menu.classList.toggle("show"));
+
+const modal = document.getElementById("messageModal");
+const btn = document.getElementById("envelopeBtn");
+const closeBtn = document.getElementById("closeModal");
+btn.onclick = () => modal.style.display = "flex";
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; }
+
+// Music Player
+const playlist = [
+  { name: "Kiss Me More", album: "Planet Her", src: "./Doja Cat - Kiss Me More (Lyrics) ft. SZA.mp3", img: "https://upload.wikimedia.org/wikipedia/en/b/b1/Doja_Cat_-_Kiss_Me_More.png" },
+];
+let currentTrack = 0, isPlaying = false;
+const audio = new Audio();
+const trackName = document.getElementById("track-name");
+const albumName = document.getElementById("album-name");
+const albumImg = document.getElementById("album-img");
+const playPauseBtn = document.getElementById("play-pause-button");
+const progressContainer = document.getElementById("progress-container");
+const progress = document.getElementById("progress");
+const currentTimeEl = document.getElementById("current-time");
+const durationEl = document.getElementById("duration");
+
+function loadTrack(index) {
+  const track = playlist[index];
+  audio.src = track.src;
+  trackName.textContent = track.name;
+  albumName.textContent = track.album;
+  albumImg.src = track.img;
+}
+function playTrack() {
+  audio.play().then(() => { isPlaying = true; playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; })
+  .catch(err => { console.log("Autoplay blocked until user interacts:", err); });
+}
+function pauseTrack() { audio.pause(); isPlaying = false; playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
+playPauseBtn.addEventListener("click", () => { isPlaying ? pauseTrack() : playTrack(); });
+document.getElementById("play-next").addEventListener("click", () => { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); playTrack(); });
+document.getElementById("play-previous").addEventListener("click", () => { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); playTrack(); });
+
+audio.addEventListener("timeupdate", () => {
+  const { currentTime, duration } = audio;
+  if (duration) {
+    progress.style.width = `${(currentTime / duration) * 100}%`;
+    currentTimeEl.textContent = formatTime(currentTime);
+    durationEl.textContent = formatTime(duration);
+  }
+});
+progressContainer.addEventListener("click", (e) => { const width = progressContainer.clientWidth; const clickX = e.offsetX; audio.currentTime = (clickX / width) * audio.duration; });
+function formatTime(sec) { const minutes = Math.floor(sec / 60); const seconds = Math.floor(sec % 60); return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`; }
+
+loadTrack(currentTrack);
+window.addEventListener("load", playTrack);
+
+
+// Close modals when clicking outside
+window.onclick = function(e) {
+  if(e.target === modal) modal.style.display='none';
+}
+
+/* 🌸 IMAGE SLIDER CONTROLS */
+const track = document.getElementById("sliderTrack");
+const leftBtn = document.getElementById("slideLeft");
+const rightBtn = document.getElementById("slideRight");
+
+leftBtn.onclick = () => {
+  track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+};
+
+rightBtn.onclick = () => {
+  track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+};
+
+</script>
+</body>
+</html>
