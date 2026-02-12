@@ -42,6 +42,26 @@ body {
   overflow: visible;
 }
 
+/* Justify text in message modal and add scroll if content overflows */
+#messageModal .modal-content {
+    text-align: justify;        /* Justify text */
+    overflow-y: auto;           /* Enable vertical scroll if content is too tall */
+    padding: 25px 25px 25px 25px; 
+  }
+  
+  /* Optional: smooth scrollbar styling */
+  #messageModal .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  #messageModal .modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  #messageModal .modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
 /* Menu */
 .menu {
     background-color: #e0e0e0; /* gray */
@@ -414,7 +434,7 @@ body {
     </div>
 
     <div class="square-feature">
-        <h3>Want this ticket?</h3>
+        <h3>Claim your free bonus ticket?</h3>
         <button id="reasonsBtn">Redeem Now</button>
       </div>
 
@@ -428,6 +448,8 @@ body {
     <p>There are so many things I love about you. I love your wawa face. I love the way you
         get excited when you tell me things. And most of all, I love the light you give off when you are
         around the people you love. It is warm and impossible to miss.
+        <br>
+        <br>
         I feel lucky. Lucky to be one of those people. Lucky to hear your jokes. Lucky to see all the weird
         faces I did not even know you could make. Being around you makes me feel like myself, and I
         would choose you in every setting.</p>
@@ -436,12 +458,13 @@ body {
 
 <!-- Modal for Reasons Why -->
 <div class="modal" id="reasonsModal">
-  <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
-    <span class="close" id="closeReasons">&times;</span>
-    <div id="reason" style="min-height:60px; font-size:1.2rem; margin:10px 0;">Loading reasons...</div>
-    <button id="nextReason">LOVE U❤️</button>
+    <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
+      <span class="close" id="closeReasons">&times;</span>
+      <!-- IMAGE for reasons -->
+      <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:100%;">
+      <button id="nextReason">FOR YOU</button>
+    </div>
   </div>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -450,32 +473,62 @@ body {
 <script>
 
     const reasons = [
-    "HAPPY VALENTINES"
+    "./3.jpg"
   ];
   
   let currentIndex = 0;
-  const reasonEl = document.getElementById('reason');
+  const reasonImg = document.getElementById('reasonImg');
   const nextReasonBtn = document.getElementById('nextReason');
   
-  // Show reason
   function showReason(index) {
-    reasonEl.textContent = reasons[index];
+    reasonImg.src = reasons[index];
+  }
+    
+    // Modal logic
+    const reasonsModal = document.getElementById('reasonsModal');
+    document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
+    document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
+    window.addEventListener('click', (e) => { 
+      if(e.target === reasonsModal) reasonsModal.style.display = 'none'; 
+    });
+  
+    /// Spawn multiple hearts like confetti
+  function spawnHeartsConfetti(x, y) {
+    for(let i = 0; i < 10; i++){
+        const heart = document.createElement('div');
+        heart.textContent = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.left = x + (Math.random()*40 - 20) + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = 12 + Math.random()*12 + 'px';
+        heart.style.opacity = 1;
+        heart.style.pointerEvents = 'none';
+        heart.style.transition = 'all 1s ease-out';
+        document.body.appendChild(heart);
+  
+        // Animate upwards and sideways
+        setTimeout(() => {
+            heart.style.top = (y - 80 - Math.random()*20) + 'px';
+            heart.style.left = (parseFloat(heart.style.left) + (Math.random()*40-20)) + 'px';
+            heart.style.opacity = 0;
+        }, 50);
+  
+        setTimeout(() => heart.remove(), 1200);
+    }
   }
   
-  // Modal logic
-  const reasonsModal = document.getElementById('reasonsModal');
-  document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
-  document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
-  window.onclick = (e) => { if(e.target === reasonsModal) reasonsModal.style.display = 'none'; }
+    
+    // Next reason button click
+    nextReasonBtn.addEventListener('click', (e) => {
+      currentIndex = (currentIndex + 1) % reasons.length;
+      showReason(currentIndex);
+      // spawn heart at button center
+      const rect = e.target.getBoundingClientRect();
+      spawnHearts(rect.left + rect.width/2, rect.top);
+    });
   
-  // Next reason button
-  nextReasonBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % reasons.length;
+    // Show first reason
     showReason(currentIndex);
-  });
-  
-  // Show first reason
-  showReason(currentIndex);
 
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
