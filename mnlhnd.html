@@ -17,6 +17,26 @@ body {
   color: #000000; 
 }
 
+/* Justify text in message modal and add scroll if content overflows */
+#messageModal .modal-content {
+    text-align: justify;        /* Justify text */
+    overflow-y: auto;           /* Enable vertical scroll if content is too tall */
+    padding: 25px 25px 25px 25px; 
+  }
+  
+  /* Optional: smooth scrollbar styling */
+  #messageModal .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  #messageModal .modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  #messageModal .modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
 /* Hamburger Menu */
 .hamburger {
   display: none;
@@ -414,7 +434,7 @@ body {
     </div>
 
     <div class="square-feature">
-        <h3>Want this ticket?</h3>
+        <h3>Claim your free bonus ticket?</h3>
         <button id="reasonsBtn">Redeem Now</button>
       </div>
 
@@ -432,20 +452,30 @@ body {
           They say fighting is how you get to know a person better. I never expected someone to
           understand my thoughts before I even said them out loud. Never in my wildest dreams did I think
           I’d get the partner I’ve always prayed for.
+          <br>
+          <br>
           You asked me if I liked hanging out with you. Yes. A million times yes. I’d travel to the moon just
           to spend more time with you. I’ve realized time is important to me, and every waking moment I
           get to spend with you feels worth it.
+          <br>
+          <br>
           I don’t even mean huge events. I like the normal ones. I like when we wake up together and you
           ask me for a hug. I like when we cook and get ready together. Just doing simple things side by
           side gives me a great start to every day.
+          <br>
+          <br>
           When you try to impress me with superficial things, I barely notice them. What I notice is the way
           your eyes sparkle when you laugh. The way your pitch gets a little higher when you get excited.
           The way you turn shy when you do the smallest gestures for me. Those are the things that make
           me love you even more.
+          <br>
+          <br>
           Being next to you and seeing what you love and what you’re proud of made Japan more than
           enough for me. Even if I didn’t get to see all of it, I saw what mattered. From Vietnam to Australia
           to Bangkok to Japan, every place felt different, but the one thing that stood out the most was
           you.
+          <br>
+          <br>
           I wouldn’t trade any of it. I’m just really grateful it was you I got to experience it all with. I love you
           so much more of everything together.
         </p>
@@ -456,12 +486,13 @@ body {
 
 <!-- Modal for Reasons Why -->
 <div class="modal" id="reasonsModal">
-  <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
-    <span class="close" id="closeReasons">&times;</span>
-    <div id="reason" style="min-height:60px; font-size:1.2rem; margin:10px 0;">Loading reasons...</div>
-    <button id="nextReason">LOVE U❤️</button>
+    <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
+      <span class="close" id="closeReasons">&times;</span>
+      <!-- IMAGE for reasons -->
+      <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:100%;">
+      <button id="nextReason">FOR YOU</button>
+    </div>
   </div>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -470,32 +501,62 @@ body {
 <script>
 
     const reasons = [
-    "HAPPY VALENTINES"
+    "./4.jpg"
   ];
   
   let currentIndex = 0;
-  const reasonEl = document.getElementById('reason');
+  const reasonImg = document.getElementById('reasonImg');
   const nextReasonBtn = document.getElementById('nextReason');
   
-  // Show reason
   function showReason(index) {
-    reasonEl.textContent = reasons[index];
+    reasonImg.src = reasons[index];
+  }
+    
+    // Modal logic
+    const reasonsModal = document.getElementById('reasonsModal');
+    document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
+    document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
+    window.addEventListener('click', (e) => { 
+      if(e.target === reasonsModal) reasonsModal.style.display = 'none'; 
+    });
+  
+    /// Spawn multiple hearts like confetti
+  function spawnHeartsConfetti(x, y) {
+    for(let i = 0; i < 10; i++){
+        const heart = document.createElement('div');
+        heart.textContent = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.left = x + (Math.random()*40 - 20) + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = 12 + Math.random()*12 + 'px';
+        heart.style.opacity = 1;
+        heart.style.pointerEvents = 'none';
+        heart.style.transition = 'all 1s ease-out';
+        document.body.appendChild(heart);
+  
+        // Animate upwards and sideways
+        setTimeout(() => {
+            heart.style.top = (y - 80 - Math.random()*20) + 'px';
+            heart.style.left = (parseFloat(heart.style.left) + (Math.random()*40-20)) + 'px';
+            heart.style.opacity = 0;
+        }, 50);
+  
+        setTimeout(() => heart.remove(), 1200);
+    }
   }
   
-  // Modal logic
-  const reasonsModal = document.getElementById('reasonsModal');
-  document.getElementById('reasonsBtn').onclick = () => reasonsModal.style.display = 'flex';
-  document.getElementById('closeReasons').onclick = () => reasonsModal.style.display = 'none';
-  window.onclick = (e) => { if(e.target === reasonsModal) reasonsModal.style.display = 'none'; }
+    
+    // Next reason button click
+    nextReasonBtn.addEventListener('click', (e) => {
+      currentIndex = (currentIndex + 1) % reasons.length;
+      showReason(currentIndex);
+      // spawn heart at button center
+      const rect = e.target.getBoundingClientRect();
+      spawnHearts(rect.left + rect.width/2, rect.top);
+    });
   
-  // Next reason button
-  nextReasonBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % reasons.length;
+    // Show first reason
     showReason(currentIndex);
-  });
-  
-  // Show first reason
-  showReason(currentIndex);
 
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
@@ -575,3 +636,4 @@ rightBtn.onclick = () => {
 </script>
 </body>
 </html>
+
