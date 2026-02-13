@@ -418,7 +418,7 @@ body {
   <!-- Right Sidebar -->
   <div class="sidebar">
     <div class="square-feature">
-      <h3>Our Song</h3>
+      <h3>Music</h3>
       <div id="player">
         <div id="album-art"><img id="album-img" src="" /></div>
         <div id="track-name"></div>
@@ -490,7 +490,7 @@ body {
       <span class="close" id="closeReasons">&times;</span>
       <!-- IMAGE for reasons -->
       <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:100%;">
-      <button id="nextReason">FOR YOU</button>
+      <button id="nextReason">Claim</button>
     </div>
   </div>
 
@@ -546,14 +546,23 @@ body {
   }
   
     
-    // Next reason button click
-    nextReasonBtn.addEventListener('click', (e) => {
-      currentIndex = (currentIndex + 1) % reasons.length;
-      showReason(currentIndex);
-      // spawn heart at button center
-      const rect = e.target.getBoundingClientRect();
-      spawnHearts(rect.left + rect.width/2, rect.top);
-    });
+  nextReasonBtn.addEventListener('click', (e) => {
+
+    // ❤️ spawn hearts
+    const rect = e.target.getBoundingClientRect();
+    spawnHeartsConfetti(rect.left + rect.width/2, rect.top);
+  
+    // ⭐ change button text
+    nextReasonBtn.textContent = "Claimed";
+  
+    // ⭐ optional: disable so it can't be clicked again
+    nextReasonBtn.disabled = true;
+    nextReasonBtn.style.opacity = "0.7";
+    nextReasonBtn.style.cursor = "default";
+  
+  });
+  
+  
   
     // Show first reason
     showReason(currentIndex);
@@ -571,7 +580,7 @@ window.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; }
 
 // Music Player
 const playlist = [
-  { name: "Eventually", album: "Currents", src: "./Tame Impala - Eventually (Audio).mp3", img: "https://i.scdn.co/image/ab67616d0000b2739e1cfc756886ac782e363d79" },
+  { name: "Ribs", album: "Pure Heroine", src: "./Ribs.mp3", img: "https://i.scdn.co/image/ab67616d0000b27333a859e36fdc9a27ed86516e" },
 ];
 let currentTrack = 0, isPlaying = false;
 const audio = new Audio();
