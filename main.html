@@ -1,266 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tenny Air</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Kirsten's Airlines</title>
 
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- BITCOUNT DOUBLE GRID FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Bitcount+Double+Grid&display=swap" rel="stylesheet">
 
-  <!-- Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<!-- Icons (UNCHANGED) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-  <style>
-    :root{
-        --bg: #f3e2d7;
-        --panel-bg: #ffffff;
-        --muted: #b3b3b3;
-        --task-bar-color: #a2b4bf;
-        --pink: #f3e2d7;
-    }
+<style>
+:root{
+    --bg:#f3e2d7;
+    --panel-bg:#ffffff;
+    --muted:#b3b3b3;
+    --task-bar-color:#a2b4bf;
+    --pink:#f3e2d7;
+}
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      font-family:'Oswald', sans-serif;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Bitcount Double Grid', monospace;
+}
 
-    body{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: url(https://i.pinimg.com/1200x/25/aa/1a/25aa1a16b78d63f639b04b8427d4f2d6.jpg) no-repeat center center;
-      background-size: cover;
-      padding:12px;
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:url(https://i.pinimg.com/1200x/25/aa/1a/25aa1a16b78d63f639b04b8427d4f2d6.jpg) no-repeat center center;
+  background-size:cover;
+  padding:12px;
+}
 
-    .container{
-      width:100%;
-      max-width:920px;
-      display:flex;
-      justify-content:center;
-      align-items:center
-    }
+.container{
+  width:100%;
+  max-width:920px;
+  display:flex;
+  justify-content:center;
+  align-items:center
+}
 
-    .window{
-      width:550px;
-      max-width:95vw;
-      border-radius:8px;
-      box-shadow:1.5px 2px 6px rgba(0,0,0,.08);
-      background:var(--panel-bg);
-      border:1px solid var(--task-bar-color);
-      display:grid;
-      grid-template-rows:auto 1fr auto;
-      overflow:visible
-    }
+.window{
+  width:550px;
+  max-width:95vw;
+  border-radius:8px;
+  box-shadow:1.5px 2px 6px rgba(0,0,0,.08);
+  background:var(--panel-bg);
+  border:1px solid var(--task-bar-color);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+}
 
-    /* TASKBAR */
-    .taskbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:8px;
-      background:var(--task-bar-color);
-      border-radius:7px 7px 0 0;
-      gap:8px
-    }
+.taskbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px;
+  background:var(--task-bar-color);
+  border-radius:7px 7px 0 0;
+  gap:8px
+}
 
-    .mac-buttons{display:flex;gap:6px;align-items:center;padding-left:4px}
-    .button{width:10px;height:10px;border-radius:50%;opacity:.85}
-    #button1{background:#050505}
-    #button2{background:var(--pink)}
-    #button3{background:#545454}
+.mac-buttons{display:flex;gap:6px;align-items:center;padding-left:4px}
+.button{width:10px;height:10px;border-radius:50%;opacity:.85}
+#button1{background:red;}
+#button2{background:yellow}
+#button3{background:green;}
 
-    .searchbar{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      justify-content:center;
-      background:white;
-      padding:6px 10px;
-      border-radius:8px;
-      width:52%
-    }
+.searchbar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  justify-content:center;
+  background:white;
+  padding:6px 10px;
+  border-radius:8px;
+  width:52%
+}
 
-    .searchbar p{
-      font-family:'DM Mono', monospace;
-      opacity:.6;
-      font-size:14px;
-      margin:0
-    }
+.searchbar p{
+  opacity:.6;
+  font-size:14px;
+}
 
-    .material-symbols-outlined{color:var(--pink)}
+.material-symbols-outlined{color:var(--pink)}
 
-    .task-buttons{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      padding-right:8px;
-      color:gray
-    }
-    .task-buttons span{opacity:.5;font-size:18px;cursor:pointer}
+.task-buttons{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding-right:8px;
+  color:gray
+}
+.task-buttons span{opacity:.5;font-size:18px;cursor:pointer}
 
-    /* DATA */
-    .data{
-      padding:16px;
-      display:grid;
-      justify-items:center
-    }
+/* DATA */
+.data{
+  padding:16px;
+  display:grid;
+  justify-items:center
+}
 
-    .clock{
-      display:grid;
-      gap:6px;
-      align-items:center;
-      justify-items:center;
-      margin-bottom:6px
-    }
+.clock{
+  display:grid;
+  gap:6px;
+  align-items:center;
+  justify-items:center;
+  margin-bottom:6px
+}
 
-    .time{
-      font-size:48px;
-      font-family:'DM Mono', monospace;
-      letter-spacing:2px;
-    }
+.time{
+  font-size:48px;
+  letter-spacing:2px;
+}
 
-    .date{
-      font-size:13px;
-      color:var(--muted);
-      display:flex;
-      gap:6px;
-      justify-content:center;
-      font-family:'DM Mono', monospace;
-    }
+.date{
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  gap:6px;
+  justify-content:center;
+}
 
-    /* NAV */
-    .nav{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:10px
-    }
+/* NAV */
+.nav{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:10px
+}
 
-    .nav a{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:6px;
-      text-decoration:none;
-      color:inherit
-    }
+.nav a{
+  text-decoration:none;
+  color:inherit;
+}
 
-    .nav img{
-      width:auto;
-      height:60px;
-      border-radius:6px;
-      object-fit:cover;
-      opacity:.9;
-    }
+/* TEXT BUTTON STYLE */
+.nav p{
+  font-size:14px;
+  letter-spacing:3px;
+  background:#eee;
+  padding:8px 14px;
+  border-radius:6px;
+  transition:.25s ease;
+  cursor:pointer;
+}
 
-    /* airport codes */
-    .nav p{
-      font-family:'DM Mono', monospace;
-      font-size:12px;
-      letter-spacing:2px;
-      background:#eee;
-      padding:3px 8px;
-      border-radius:4px;
-    }
-
-  </style>
+.nav p:hover{
+  background:#e4e4e4;
+  transform:translateY(-2px);
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="window">
+<div class="container">
+<div class="window">
 
-      <!-- TASKBAR -->
-      <div class="taskbar">
-        <div class="mac-buttons">
-          <div class="button" id="button1"></div>
-          <div class="button" id="button2"></div>
-          <div class="button" id="button3"></div>
-        </div>
+<div class="taskbar">
+  <div class="mac-buttons">
+    <div class="button" id="button1"></div>
+    <div class="button" id="button2"></div>
+    <div class="button" id="button3"></div>
+  </div>
 
-        <div class="searchbar">
-          <span class="material-symbols-outlined">search</span>
-          <p>www.tennyair.com</p>
-        </div>
+  <div class="searchbar">
+    <span class="material-symbols-outlined">search</span>
+    <p>www.tennyair.com</p>
+  </div>
 
-        <div class="task-buttons">
-          <span class="material-symbols-outlined">arrow_back_ios</span>
-          <span class="material-symbols-outlined">arrow_forward_ios</span>
-          <span class="material-symbols-outlined">upload</span>
-          <span class="material-symbols-outlined">person</span>
-        </div>
-      </div>
+  <div class="task-buttons">
+    <span class="material-symbols-outlined">arrow_back_ios</span>
+    <span class="material-symbols-outlined">arrow_forward_ios</span>
+    <span class="material-symbols-outlined">upload</span>
+    <span class="material-symbols-outlined">person</span>
+  </div>
+</div>
 
-      <!-- DATA -->
-      <div class="data">
-        <div class="clock">
-          <div class="time">
-            <span id="text-hour">hh</span><span id="text-minutes">mm</span>
-          </div>
-          <div class="date">
-            <div id="date-month">m</div>
-            <div id="date-day"></div>
-            <div id="date-year"></div>
-          </div>
-        </div>
-
-        <div class="nav">
-          <a href="HAN.html">
-            <img src="https://i.pinimg.com/736x/2d/0c/8f/2d0c8f8dc574cc9b6437ebebb794535b.jpg">
-            <p>HAN</p>
-          </a>
-
-          <a href="AUS.html">
-            <img src="https://i.pinimg.com/736x/1f/0c/79/1f0c79d3be20b216c65d52cd6b83602d.jpg">
-            <p>AUS</p>
-          </a>
-
-          <a href="BKK.html">
-            <img src="https://i.pinimg.com/1200x/48/f4/c6/48f4c6a3b1e503f931ef4b4aa91f087d.jpg">
-            <p>BKK</p>
-          </a>
-
-          <a href="HND.html">
-            <img src="https://i.pinimg.com/736x/5c/82/b8/5c82b8e6030b9f3c5fda7f511f600eef.jpg">
-            <p>HND</p>
-          </a>
-        </div>
-      </div>
-
+<div class="data">
+  <div class="clock">
+    <div class="time">
+      <span id="text-hour">hh</span><span id="text-minutes">mm</span>
+    </div>
+    <div class="date">
+      <div id="date-month"></div>
+      <div id="date-day"></div>
+      <div id="date-year"></div>
     </div>
   </div>
 
+  <div class="nav">
+    <a href="HAN.html"><p>HAN</p></a>
+    <a href="AUS.html"><p>AUS</p></a>
+    <a href="BKK.html"><p>BKK</p></a>
+    <a href="HND.html"><p>HND</p></a>
+  </div>
+</div>
+
+</div>
+</div>
+
 <script>
-const dateMonth = document.getElementById('date-month'),
-      dateDay = document.getElementById('date-day'),
-      dateYear = document.getElementById('date-year'),
-      textHour = document.getElementById('text-hour'),
-      textMinutes = document.getElementById('text-minutes');
+const dateMonth=document.getElementById('date-month'),
+dateDay=document.getElementById('date-day'),
+dateYear=document.getElementById('date-year'),
+textHour=document.getElementById('text-hour'),
+textMinutes=document.getElementById('text-minutes');
 
 function clockText(){
-  const date = new Date();
-  const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  dateMonth.textContent = months[date.getMonth()];
-  dateDay.textContent = date.getDate() + ',';
-  dateYear.textContent = date.getFullYear();
+  const date=new Date();
+  const months=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  dateMonth.textContent=months[date.getMonth()];
+  dateDay.textContent=date.getDate()+',';
+  dateYear.textContent=date.getFullYear();
 
-  const hh = date.getHours();
-  let mm = date.getMinutes();
-  if (mm < 10) mm = '0' + mm;
+  const hh=date.getHours();
+  let mm=date.getMinutes();
+  if(mm<10) mm='0'+mm;
 
-  textHour.textContent = hh + ':';
-  textMinutes.textContent = mm;
+  textHour.textContent=hh+':';
+  textMinutes.textContent=mm;
 }
 
 clockText();
-setInterval(clockText, 1000);
+setInterval(clockText,1000);
 </script>
 </body>
 </html>
