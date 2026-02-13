@@ -235,26 +235,6 @@ body {
   margin: 0;
 }
 
-/* Justify text in message modal and add scroll if content overflows */
-#messageModal .modal-content {
-  text-align: justify;        /* Justify text */
-  overflow-y: auto;           /* Enable vertical scroll if content is too tall */
-  padding: 25px 25px 25px 25px; 
-}
-
-/* Optional: smooth scrollbar styling */
-#messageModal .modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-#messageModal .modal-content::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-#messageModal .modal-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
 
 /* Modal Animations */
 @keyframes pop { 
@@ -342,6 +322,27 @@ body {
       display:none;
     }
   }
+
+  /* Justify text in message modal and add scroll if content overflows */
+#messageModal .modal-content {
+  text-align: justify;        /* Justify text */
+  overflow-y: auto;           /* Enable vertical scroll if content is too tall */
+  padding: 25px 25px 25px 25px; 
+}
+
+/* Optional: smooth scrollbar styling */
+#messageModal .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+#messageModal .modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+#messageModal .modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
   
 
 /* Music Player */
@@ -392,7 +393,7 @@ body {
   <!-- Middle Column -->
   <div class="gift-header">
     <div class="title">MNL to AUS</div>
-    <div class="small-title">07/16/2025</div>
+    <div class="small-title">07/16/20255</div>
     <!-- 🌸 IMAGE SLIDER -->
     <div class="image-slider">
 
@@ -418,7 +419,7 @@ body {
   <!-- Right Sidebar -->
   <div class="sidebar">
     <div class="square-feature">
-      <h3>🎵 Our Songs</h3>
+      <h3> Music </h3>
       <div id="player">
         <div id="album-art"><img id="album-img" src="" /></div>
         <div id="track-name"></div>
@@ -434,9 +435,9 @@ body {
     </div>
 
     <div class="square-feature">
-      <h3>Claim your free bonus ticket?</h3>
-      <button id="reasonsBtn">Redeem Now</button>
-    </div>
+        <h3>Claim your free bonus ticket?</h3>
+        <button id="reasonsBtn">Redeem Now</button>
+      </div>
 
   </div>
 </div>
@@ -445,8 +446,6 @@ body {
 <div class="modal" id="messageModal">
   <div class="modal-content">
     <span class="close" id="closeModal">&times;</span>
-    <!-- Scrollable content -->
-    <div class="modal-scroll" style="overflow-y: auto; max-height: 70vh; padding-right: 10px;">
     <p>I was so worried that what I had for you would not be enough. Asking everyone from
       store clerks to strangers what was good around Sydney, even though I know you never ask for
       much. I just wanted you to have the best time. I remember counting down the days until I could
@@ -472,8 +471,8 @@ body {
   <div class="modal-content" style="max-width:400px; max-height:300px; padding:15px 20px; gap:10px;">
     <span class="close" id="closeReasons">&times;</span>
     <!-- IMAGE for reasons -->
-    <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:100%;">
-    <button id="nextReason">FOR YOU</button>
+    <img id="reasonImg" src="./heart-surprise.png" alt="Reason" style="max-width:80%;">
+    <button id="nextReason">Claim</button>
   </div>
 </div>
 
@@ -527,16 +526,22 @@ function spawnHeartsConfetti(x, y) {
       setTimeout(() => heart.remove(), 1200);
   }
 }
+nextReasonBtn.addEventListener('click', (e) => {
 
-  
-  // Next reason button click
-  nextReasonBtn.addEventListener('click', (e) => {
-    currentIndex = (currentIndex + 1) % reasons.length;
-    showReason(currentIndex);
-    // spawn heart at button center
-    const rect = e.target.getBoundingClientRect();
-    spawnHearts(rect.left + rect.width/2, rect.top);
-  });
+  // ❤️ spawn hearts
+  const rect = e.target.getBoundingClientRect();
+  spawnHeartsConfetti(rect.left + rect.width/2, rect.top);
+
+  // ⭐ change button text
+  nextReasonBtn.textContent = "Claimed";
+
+  // ⭐ optional: disable so it can't be clicked again
+  nextReasonBtn.disabled = true;
+  nextReasonBtn.style.opacity = "0.7";
+  nextReasonBtn.style.cursor = "default";
+
+});
+
 
   // Show first reason
   showReason(currentIndex);
@@ -554,7 +559,7 @@ window.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; }
 
 // Music Player
 const playlist = [
-  { name: "Passionfruit", album: "Morelife", src: "./Passionfruit.mp3", img: "https://i.scdn.co/image/ab67616d0000b2734f0fd9dad63977146e685700" },
+  { name: "Eventually", album: "Currents", src: "./Tame Impala - Eventually (Audio).mp3", img: "https://i.scdn.co/image/ab67616d0000b2739e1cfc756886ac782e363d79" },
 ];
 let currentTrack = 0, isPlaying = false;
 const audio = new Audio();
@@ -619,4 +624,5 @@ rightBtn.onclick = () => {
 </script>
 </body>
 </html>
+
 
