@@ -132,21 +132,17 @@ const x = setInterval(()=>{
   document.getElementById("minutes").innerText = Math.floor((distance%hour)/minute);
   document.getElementById("seconds").innerText = Math.floor((distance%minute)/second);
 
-  /* redirect ONLY when countdown ends */
+  /* ⛔ NO AUTO REDIRECT ANYMORE */
   if(distance <= 0){
     clearInterval(x);
     document.getElementById("headline").innerText="Happy Valentine's Day!";
     document.getElementById("countdown").style.display="none";
-
-    setTimeout(()=>{
-      window.location.href='main.html';
-    },3000);
   }
 
 },1000);
 
 
-/* BUTTON LOCK LOGIC */
+/* BUTTON LOCK LOGIC — ONLY THIS REDIRECTS */
 const valentineBtn = document.getElementById('valentineBtn');
 const modal = document.getElementById('notYetModal');
 const closeModal = document.getElementById('closeModal');
