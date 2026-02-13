@@ -122,11 +122,6 @@ const second = 1000,
 /* COUNTDOWN TARGET */
 const countDownDate = new Date(2026,1,14,0,0,0).getTime();
 
-/* instant redirect if already Feb 14 */
-if(new Date() >= new Date(2026,1,14,0,0,0)){
-  window.location.href="main.html";
-}
-
 const x = setInterval(()=>{
 
   const now = new Date().getTime();
@@ -137,6 +132,7 @@ const x = setInterval(()=>{
   document.getElementById("minutes").innerText = Math.floor((distance%hour)/minute);
   document.getElementById("seconds").innerText = Math.floor((distance%minute)/second);
 
+  /* redirect ONLY when countdown ends */
   if(distance <= 0){
     clearInterval(x);
     document.getElementById("headline").innerText="Happy Valentine's Day!";
@@ -158,6 +154,7 @@ const closeModal = document.getElementById('closeModal');
 valentineBtn.addEventListener('click',()=>{
   const now = new Date();
 
+  /* FEB 14 ONLY */
   if(now.getDate()===14 && now.getMonth()===1){
     window.location.href='main.html';
   }else{
