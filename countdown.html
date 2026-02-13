@@ -32,9 +32,6 @@ li{
 }
 li span{ display:block; font-size:4.5rem; }
 
-.emoji{ display:none; padding:1rem; }
-.emoji span{ font-size:4rem; padding:0 .5rem; }
-
 #valentineBtn{
   margin-top:30px;
   padding:15px 25px;
@@ -104,10 +101,6 @@ li span{ display:block; font-size:4.5rem; }
     </ul>
   </div>
 
-  <div id="content" class="emoji">
-    <span>❤️</span><span>💌</span><span>🥰</span>
-  </div>
-
   <button id="valentineBtn">Open on Valentine's Only</button>
 </div>
 
@@ -126,10 +119,13 @@ const second = 1000,
       hour   = minute*60,
       day    = hour*24;
 
-/* ✅ FIXED COUNTDOWN TARGET
-   Feb = month index 1
-*/
+/* COUNTDOWN TARGET */
 const countDownDate = new Date(2026,1,14,0,0,0).getTime();
+
+/* instant redirect if already Feb 14 */
+if(new Date() >= new Date(2026,1,14,0,0,0)){
+  window.location.href="main.html";
+}
 
 const x = setInterval(()=>{
 
@@ -143,9 +139,8 @@ const x = setInterval(()=>{
 
   if(distance <= 0){
     clearInterval(x);
-    document.getElementById("headline").innerText="Happy Valentine's Day! 💖";
+    document.getElementById("headline").innerText="Happy Valentine's Day!";
     document.getElementById("countdown").style.display="none";
-    document.getElementById("content").style.display="block";
 
     setTimeout(()=>{
       window.location.href='main.html';
@@ -180,5 +175,3 @@ window.addEventListener('click',e=>{
 
 </body>
 </html>
-
-
